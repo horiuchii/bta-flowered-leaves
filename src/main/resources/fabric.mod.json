@@ -1,11 +1,11 @@
 {
 	"schemaVersion": 1,
-	"id": "examplemod",
+	"id": "floweringleaves",
 	"version": "${version}",
-	"name": "Example Mod",
-	"description": "This mod aims to help new BTA modders.",
+	"name": "Flowered Leaves",
+	"description": "Make your leaves pretty with flowers!",
 	"authors": [
-		"Turnip Labs"
+		"Horiuchi"
 	],
 	"contact": {
 		"homepage": "",
@@ -16,20 +16,20 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"turniplabs.examplemod.ExampleMod"
+			"horiuchi.floweringleaves.FloweringLeavesMod"
 		],
 		"beforeGameStart": [
-			"turniplabs.examplemod.ExampleMod"
+			"horiuchi.floweringleaves.FloweringLeavesMod"
 		],
 		"afterGameStart": [
-			"turniplabs.examplemod.ExampleMod"
+			"horiuchi.floweringleaves.FloweringLeavesMod"
 		],
 		"recipesReady": [
-			"turniplabs.examplemod.ExampleMod"
+			"horiuchi.floweringleaves.FloweringLeavesMod"
 		]
 	},
 	"mixins": [
-		"examplemod.mixins.json"
+		"floweringleaves.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=${fabricloader}",
