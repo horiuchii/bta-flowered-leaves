@@ -8,8 +8,8 @@
 		"Turnip Labs"
 	],
 	"contact": {
-		"homepage": "",
-		"sources": ""
+		"homepage": "https://modrinth.com/mod/flowered-leaves",
+		"sources": "https://github.com/horiuchii/bta-flowered-leaves"
 	},
 	"icon": "icon.png",
 	"license": "CC0-1.0",
