@@ -10,6 +10,9 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -44,23 +47,21 @@ public abstract class BlockLogicLeavesMixin extends BlockLogic {
 		}
 	}
 
-	public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced)
+	public boolean onInteracted(@NotNull World world, @NotNull TilePosc tilePos, @NotNull Player player, @Nullable Side side, double xHit, double yHit)
 	{
 		ItemStack heldItem = player.getHeldItem();
-		LeavesFlowerUtil.LeafFlower currentFlower = LeavesFlowerUtil.getLeavesFlower(world.getBlockMetadata(x, y, z));
+		LeavesFlowerUtil.LeafFlower currentFlower = LeavesFlowerUtil.getLeavesFlower(world.getBlockData(tilePos));
 
 		if (heldItem == null) // If the leaves block has a flower, drop it
 		{
 			if(currentFlower == LeavesFlowerUtil.LeafFlower.NONE)
 				return false;
 
-			world.setBlockAndMetadataWithNotify(x, y, z, world.getBlockId(x, y, z), LeavesFlowerUtil.setLeavesFlower(world.getBlockMetadata(x, y, z), LeavesFlowerUtil.LeafFlower.NONE));
-			if (player != null) {
-				world.playSoundAtEntity(player, player, "item.pickup", 1.0F, 1.0F);
-			}
+			world.setBlockTypeDataNotify(tilePos, world.getBlockType(tilePos), LeavesFlowerUtil.setLeavesFlower(world.getBlockData(tilePos), LeavesFlowerUtil.LeafFlower.NONE));
+			world.playSoundAtEntity(player, player, "item.pickup", 1.0F, 1.0F);
 			if (!world.isClientSide)
 			{
-				world.dropItem(x, y, z, new ItemStack(LeavesFlowerUtil.FLOWER_TO_ITEM.get(currentFlower), 1, 0));
+				world.dropItem(tilePos, new ItemStack(LeavesFlowerUtil.FLOWER_TO_ITEM.get(currentFlower), 1, 0));
 			}
 			return true;
 		}
@@ -75,17 +76,17 @@ public abstract class BlockLogicLeavesMixin extends BlockLogic {
 			// If the leaves block has a flower, drop it
 			if (!world.isClientSide && currentFlower != LeavesFlowerUtil.LeafFlower.NONE)
 			{
-				world.dropItem(x, y, z, new ItemStack(LeavesFlowerUtil.FLOWER_TO_ITEM.get(currentFlower), 1, 0));
+				world.dropItem(tilePos, new ItemStack(LeavesFlowerUtil.FLOWER_TO_ITEM.get(currentFlower), 1, 0));
 			}
 
 			// Consume and set metadata
 			heldItem.consumeItem(player);
-			world.playBlockSoundEffect(player, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), this.block, EnumBlockSoundEffectType.PLACE);
-			int meta = world.getBlockMetadata(x, y, z);
+			world.playBlockSoundEffect(player, (double)((float)tilePos.x() + 0.5F), (double)((float)tilePos.y() + 0.5F), (double)((float)tilePos.z() + 0.5F), this.block, EnumBlockSoundEffectType.PLACE);
+			int meta = world.getBlockData(tilePos);
 			meta = LeavesFlowerUtil.setLeavesFlower(meta, newFlower);
 			meta = BlockLogicLeavesBase.setDecaying(meta, false);
 			meta = BlockLogicLeavesBase.setPermanent(meta, true);
-			world.setBlockAndMetadataWithNotify(x, y, z, world.getBlockId(x, y, z), meta);
+			world.setBlockTypeDataNotify(tilePos, world.getBlockType(tilePos), meta);
 			return true;
 		}
 	}

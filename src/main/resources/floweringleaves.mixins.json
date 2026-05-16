@@ -9,6 +9,6 @@
     "BlockLogicLeavesMixin"
   ],
   "client": [
-    "BlockModelLeavesMixin"
+    "BlockModelGenericLeavesMixin"
   ]
 }

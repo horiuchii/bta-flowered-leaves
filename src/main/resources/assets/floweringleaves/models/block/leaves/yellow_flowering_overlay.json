@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "floweringleaves:block/leaves/yellow_flowering_overlay"
+  }
+}
