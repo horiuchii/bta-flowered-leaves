@@ -1,6 +1,5 @@
 package horiuchi.floweringleaves.mixin;
 
-import com.google.common.collect.ImmutableMap;
 import horiuchi.floweringleaves.LeavesFlowerUtil;
 import net.minecraft.client.render.block.model.BlockModelDispatcher;
 import net.minecraft.client.render.block.model.generic.BlockModelGeneric;
@@ -23,7 +22,7 @@ import java.util.Map;
 @Mixin(BlockModelGenericLeaves.class)
 public class BlockModelGenericLeavesMixin<T extends BlockLogic> extends BlockModelGeneric<T> {
 	@Unique
-	private static final Map<LeavesFlowerUtil.LeafFlower, StaticBlockModel> FLOWER_TO_TEXTURE = ImmutableMap.of(
+	private static final Map<LeavesFlowerUtil.LeafFlower, StaticBlockModel> FLOWER_TO_TEXTURE = Map.of(
 		LeavesFlowerUtil.LeafFlower.YELLOW, BlockModelDispatcher.loadDataModel("floweringleaves:block/leaves/yellow_flowering_overlay").asModel(),
 		LeavesFlowerUtil.LeafFlower.RED, BlockModelDispatcher.loadDataModel("floweringleaves:block/leaves/red_flowering_overlay").asModel(),
 		LeavesFlowerUtil.LeafFlower.PINK, BlockModelDispatcher.loadDataModel("floweringleaves:block/leaves/pink_flowering_overlay").asModel(),
@@ -45,7 +44,7 @@ public class BlockModelGenericLeavesMixin<T extends BlockLogic> extends BlockMod
 		LeavesFlowerUtil.LeafFlower flower = LeavesFlowerUtil.getLeavesFlower(worldSource.getBlockData(tilePos));
 		if (flower != LeavesFlowerUtil.LeafFlower.NONE)
 		{
-			didRender |= FLOWER_TO_TEXTURE.get(flower).renderAttached(this, tessellator, worldSource, tilePos, 0, 0, 0, (double)0.0F, (double)0.0F, (double)0.0F, false, cullFaces, overrideTexture);
+			didRender |= FLOWER_TO_TEXTURE.get(flower).renderAttached(this, tessellator, worldSource, tilePos, 0, 0, 0, 0.0F, 0.0F, 0.0F, false, cullFaces, overrideTexture);
 		}
 
 		return didRender;

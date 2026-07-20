@@ -63,7 +63,6 @@ public abstract class BlockLogicLeavesMixin extends BlockLogic {
 			{
 				world.dropItem(tilePos, new ItemStack(LeavesFlowerUtil.FLOWER_TO_ITEM.get(currentFlower), 1, 0));
 			}
-			return true;
 		}
 		else // Attempt to consume the flower and set metadata
 		{
@@ -81,14 +80,14 @@ public abstract class BlockLogicLeavesMixin extends BlockLogic {
 
 			// Consume and set metadata
 			heldItem.consumeItem(player);
-			world.playBlockSoundEffect(player, (double)((float)tilePos.x() + 0.5F), (double)((float)tilePos.y() + 0.5F), (double)((float)tilePos.z() + 0.5F), this.block, EnumBlockSoundEffectType.PLACE);
+			world.playBlockSoundEffect(player, (float)tilePos.x() + 0.5F, (float)tilePos.y() + 0.5F, (float)tilePos.z() + 0.5F, this.block, EnumBlockSoundEffectType.PLACE);
 			int meta = world.getBlockData(tilePos);
 			meta = LeavesFlowerUtil.setLeavesFlower(meta, newFlower);
 			meta = BlockLogicLeavesBase.setDecaying(meta, false);
 			meta = BlockLogicLeavesBase.setPermanent(meta, true);
 			world.setBlockTypeDataNotify(tilePos, world.getBlockType(tilePos), meta);
-			return true;
 		}
+		return true;
 	}
 }
 

@@ -1,8 +1,5 @@
 package horiuchi.floweringleaves;
 
-import com.google.common.collect.ImmutableMap;
-import net.minecraft.client.render.texture.stitcher.IconCoordinate;
-import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Blocks;
 
 import java.util.Map;
@@ -22,7 +19,7 @@ public class LeavesFlowerUtil {
 		UNUSED
 	}
 
-	public static final Map<Integer, LeafFlower> ITEM_TO_FLOWER = ImmutableMap.of(
+	public static final Map<Integer, LeafFlower> ITEM_TO_FLOWER = Map.of(
 		Blocks.FLOWER_YELLOW.id(), LeafFlower.YELLOW,
 		Blocks.FLOWER_RED.id(), LeafFlower.RED,
 		Blocks.FLOWER_PINK.id(), LeafFlower.PINK,
@@ -31,7 +28,7 @@ public class LeavesFlowerUtil {
 		Blocks.FLOWER_ORANGE.id(), LeafFlower.ORANGE
 	);
 
-	public static final Map<LeafFlower, Integer> FLOWER_TO_ITEM = ImmutableMap.of(
+	public static final Map<LeafFlower, Integer> FLOWER_TO_ITEM = Map.of(
 		LeafFlower.YELLOW, Blocks.FLOWER_YELLOW.id(),
 		LeafFlower.RED, Blocks.FLOWER_RED.id(),
 		LeafFlower.PINK, Blocks.FLOWER_PINK.id(),
